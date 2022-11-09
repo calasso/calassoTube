@@ -1,8 +1,10 @@
+import React from "react";
 import config from "../config.json";
 import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
+// import { StyledFavorites } from "../src/components/Favorites";
 
 function HomePage() {
   const estilosDaHomePage = {
@@ -10,6 +12,7 @@ function HomePage() {
   };
 
   // console.log(config.playlists);
+  const [valorDoFiltro, setValorDoFiltro] = React.useState("");
 
   return (
     <>
@@ -20,26 +23,17 @@ function HomePage() {
         flex: 1,
         // backgroundColor: "red",
       }}>
-        <Menu />
+        {/* Prop Drilling */}
+        <Menu valorDoFiltro={valorDoFiltro} setValorDoFiltro={setValorDoFiltro} />
         <Header />
-        <Timeline playlists={config.playlists}>
-          Conteúdo
-        </Timeline>
+        <Timeline searchValue={valorDoFiltro} playlists={config.playlists}>Conteúdo</Timeline>
+        {/* <Favorites favorites={config.favorites}>Favoritos</Favorites> */}
       </div>
     </>
   );
 }
 
 export default HomePage
-
-// function Menu() {
-//     return (
-//         <div>
-//             Menu
-//         </div>
-//     )
-// }
-
 
 const StyledHeader = styled.div`
     img {
@@ -48,7 +42,6 @@ const StyledHeader = styled.div`
         border-radius: 50%;
     }
     .user-info {
-        margin-top: 50px;
         display: flex;
         align-items: center;
         width: 100%;
@@ -56,10 +49,18 @@ const StyledHeader = styled.div`
         gap: 16px;
     }
 `;
+
+const StyledBanner = styled.div`
+    background-color: blue;
+    background-image: url(${({ bg }) => bg});
+    /* background-image: url(${config.bg}); */
+    height: 230px;
+`;
+
 function Header() {
   return (
     <StyledHeader>
-      {/* <img src="banner" /> */}
+      <StyledBanner bg={config.bg} />
       <section className="user-info">
         <img src={`https://github.com/${config.github}.png`} />
         <div>
@@ -75,31 +76,35 @@ function Header() {
   )
 }
 
-function Timeline(propriedades) {
+function Timeline({ searchValue, ...propriedades }) {
   // console.log("Dentro do componente", propriedades.playlists);
   const playlistNames = Object.keys(propriedades.playlists);
-  // Statement
-  // Retorno por expressão
   return (
     <StyledTimeline>
       {playlistNames.map((playlistName) => {
         const videos = propriedades.playlists[playlistName];
-        console.log(playlistName);
-        console.log(videos);
+        //console.log(playlistName);
+        //console.log(videos);
         return (
-          <section>
+          <section key={playlistName}>
             <h2>{playlistName}</h2>
             <div>
-              {videos.map((video) => {
-                return (
-                  <a href={video.url}>
-                    <img src={video.thumb} />
-                    <span>
-                      {video.title}
-                    </span>
-                  </a>
-                )
-              })}
+              {videos
+                .filter((video) => {
+                  const titleNormalized = video.title.toLowerCase();
+                  const searchValueNormalized = searchValue.toLowerCase();
+                  return titleNormalized.includes(searchValueNormalized)
+                })
+                .map((video) => {
+                  return (
+                    <a key={video.url} href={video.url}>
+                      <img src={video.thumb} />
+                      <span>
+                        {video.title}
+                      </span>
+                    </a>
+                  )
+                })}
             </div>
           </section>
         )
@@ -107,3 +112,34 @@ function Timeline(propriedades) {
     </StyledTimeline>
   )
 }
+
+// function Favorites(prop) {
+//   console.log("Dentro do componente", prop.favorites);
+//   const favoriteNames = Object.keys(prop.favorites);
+//   return (
+//     <StyledFavorites>
+//       {favoriteNames.map((favoritesNames) => {
+//         const fav = prop.favorites[favoritesNames];
+//         //console.log(favoritesNames);
+//         console.log(fav);
+//         return (
+//           <section>
+//             <h2>{favoritesNames}</h2>
+//             <div>
+//               {fav.map((fav) => {
+//                 return (
+//                   <a href={fav.url}>
+//                     <img src={fav.thumb} />
+//                     <span>
+//                       {fav.perfil_name}
+//                     </span>
+//                   </a>
+//                 )
+//               })}
+//             </div>
+//           </section>
+//         )
+//       })}
+//     </StyledFavorites>
+//   )
+// }

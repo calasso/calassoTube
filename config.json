@@ -1,19 +1,22 @@
 {
   "name": "Raphael Calasso",
   "job": "Desenvolvedor Web",
+  "bg": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
   "github": "calasso",
   "favorites": [
     {
-      "name": "RocketSeat",
-      "url": "https://www.youtube.com/c/RocketSeat",
-      "thumb": "https://img.youtube.com/vi/QsqatJxAUtk/hqdefault.jpg"
-    },
-    {
-      "title": "Frostpunk - Neve e Steak tartare",
-      "url": "https://www.youtube.com/watch?v=O8jtAyPuhNg",
-      "thumb": "https://img.youtube.com/vi/O8jtAyPuhNg/hqdefault.jpg"
+        "perfil_name": "@WBuffaloBrasil",
+        "url": "https://www.youtube.com/user/WBuffaloBrasil",
+        "thumb": "https://yt3.ggpht.com/ytc/AMLnZu9_vTuTe7YQqeGdvJ7oehJ7M7ApLSZia7fCOEQ2fg=s88-c-k-c0x00ffffff-no-rj"
+      },
+      {
+        "perfil_name": "@RaphaelCalasso",
+        "url": "https://www.youtube.com/c/RaphaelCalasso",
+        "thumb": "https://yt3.ggpht.com/ytc/AMLnZu9ukFngHZfEl4KtvJyO6IWN_plVlbZJj2jlukeu_Q=s88-c-k-c0x00ffffff-no-rj"
     }
   ],
+
+
   "playlists": {
     "jogos": [
       {
